@@ -1,17 +1,20 @@
 const graphql = require('graphql');
 const _ = require('lodash');
-const books = [
-    { title: "Harry Potter", id: "1" ,authorId:"1"},
-    { title: "Invisible Man. Ralph Ellison. ... ", id: "2" ,authorId:"2"},
-    { title: "Beloved", id: "3",authorId:"3" },
-    { title: "A Passage to India. E.M. Forster. ... ", id: "4" ,authorId:"2"},
-    { title: "One Hundred Years of Solitude. ... ", id: "5",authorId:"1" },
-];
-const author = [
-    { id: '1', name: 'Sam wills', age: 32 },
-    { id: '2', name: 'John Sadan', age: 40 },
-    { id: '3', name: 'Rock maxwill', age: 45 }
-];
+const Book = require('../models/book');
+const Author = require('../models/author');
+// const books = [
+//     { title: "Harry Potter", id: "1" ,authorId:"1"},
+//     { title: "Invisible Man. Ralph Ellison. ... ", id: "2" ,authorId:"2"},
+//     { title: "Beloved", id: "3",authorId:"3" },
+//     { title: "A Passage to India. E.M. Forster. ... ", id: "4" ,authorId:"2"},
+//     { title: "One Hundred Years of Solitude. ... ", id: "5",authorId:"1" },
+// ];
+// const author = [
+//     { id: '1', name: 'Sam wills', age: 32 },
+//     { id: '2', name: 'John Sadan', age: 40 },
+//     { id: '3', name: 'Rock maxwill', age: 45 }
+// ];
+
 const { GraphQLInt,
     GraphQLObjectType,
     GraphQLString,
