@@ -6,8 +6,8 @@ import React, { Component } from 'react'
     render() {
         return (
             <div>
-                <ul>
-                    BookList
+                <ul id="book-list">
+                    <li>Book 1</li>
                 </ul>
             </div>
         )
