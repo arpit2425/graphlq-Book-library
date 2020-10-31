@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const cors = require('cors');
 dotenv.config({ path: `${__dirname}/.env` });
 
 mongoose.connect(process.env.DATABASE_URL, {
@@ -11,10 +12,11 @@ mongoose.connect(process.env.DATABASE_URL, {
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./Schema/schema');
 const app = express();
+app.use(cors());
 app.use('/graphql', graphqlHTTP({
     schema,
     graphiql:true,
 }))
-app.listen(5001, () => {
+app.listen(5007, () => {
     console.log('Listening');
 })
