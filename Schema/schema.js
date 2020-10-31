@@ -28,12 +28,15 @@ const BookType = new GraphQLObjectType({
     name: 'books',
     fields: () => ({
         id: { type: GraphQLID },
+        authorId: { type: GraphQLID },
         title: { type: GraphQLString },
-        price:{type:GraphQLInt},
+        price: { type: GraphQLInt },
         author: {
             type: AuthorType,
-            resolve: (parent, args) => {
-                return _.find(author, { id: parent.authorId });
+            resolve: async (parent, args) => {
+                const id= parent.authorId;
+                const author = await Author.findById(id);
+                return author;
             }
         }
     })
@@ -46,8 +49,11 @@ const AuthorType = new GraphQLObjectType({
         age: { type: GraphQLInt },
         books: {
             type: GraphQLList(BookType),
-            resolve: (parent, args) => {
-               return _.filter(books,{authorId:parent.id})
+            resolve:async (parent, args) => {
+                const books = await Book.find({
+                    authorId: parent.id
+                });
+                return books;
             }
         }
         
@@ -121,7 +127,26 @@ const Mutation = new GraphQLObjectType({
                 return author;
             }
 
+        },
+        addBook: {
+            type: BookType,
+            args: {
+                title: { type: GraphQLNonNull(GraphQLString) },
+                price: { type: GraphQLNonNull(GraphQLInt) },
+                authorId: { type: GraphQLNonNull(GraphQLID) },
+                
+            },
+            resolve: async (parent, args) => {
+                const book = await Book.create({
+                    title: args.title,
+                    price: args.price,
+                    authorId: args.authorId,
+                });
+                return book;
+                
+            }
         }
+
     })
 })
 module.exports = new GraphQLSchema({
