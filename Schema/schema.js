@@ -61,8 +61,10 @@ const RootQuery = new GraphQLObjectType({
             args: {
                 id: { type: GraphQLID }
             },
-            resolve: (parent, args) => {
-                return _.find(books, { id: args.id });
+            resolve: async(parent, args) => {
+                const id = args.id;
+                const book = await Book.findById(id);
+                   return book;
                 
             }
         },
@@ -73,14 +75,17 @@ const RootQuery = new GraphQLObjectType({
                 id: { type: GraphQLID },
                 
             },
-            resolve: (parent, args) => {
-                return _.find(author, { id: args.id });
+            resolve: async (parent, args) => {
+                const id = args.id;
+                const author = await Author.findById(id);
+                return author;
             }
         },
         books: {
             name:'Books',
             type: GraphQLList(BookType),
-            resolve: (parent, args) => {
+            resolve: async (parent, args) => {
+                const books = await Book.find();
                 return books;
                 
             }            
@@ -88,8 +93,9 @@ const RootQuery = new GraphQLObjectType({
         authors: {
             type: GraphQLList(AuthorType),
             name: "List of authors",
-            resolve(parent, args) {
-                return author;
+            resolve:async(parent, args)=> {
+                const authors = await Author.find();
+                return authors;
                 
             }
             
