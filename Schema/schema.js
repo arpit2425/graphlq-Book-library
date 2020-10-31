@@ -21,6 +21,7 @@ const { GraphQLInt,
     GraphQLSchema,
     GraphQLID,
     GraphQLList,
+    GraphQLNonNull,
 
 } = graphql;
 const BookType = new GraphQLObjectType({
@@ -28,6 +29,7 @@ const BookType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         title: { type: GraphQLString },
+        price:{type:GraphQLInt},
         author: {
             type: AuthorType,
             resolve: (parent, args) => {
@@ -95,6 +97,28 @@ const RootQuery = new GraphQLObjectType({
 
     })
 });
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: () => ({
+        addAuthor: {
+            type: AuthorType,
+            args: {
+                name: { type: GraphQLNonNull(GraphQLString) },
+                age: { type: GraphQLNonNull(GraphQLInt) },
+                
+            },
+            resolve: async (parent, args) => {
+                const author = await Author.create({
+                    name: args.name,
+                    age: args.age,
+                });
+                return author;
+            }
+
+        }
+    })
+})
 module.exports = new GraphQLSchema({
-    query:RootQuery,
+    query: RootQuery,
+    mutation:Mutation,
 })
