@@ -15,6 +15,6 @@ app.use('/graphql', graphqlHTTP({
     schema,
     graphiql:true,
 }))
-app.listen(5000, () => {
+app.listen(5001, () => {
     console.log('Listening');
 })
