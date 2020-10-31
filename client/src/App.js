@@ -3,7 +3,7 @@ import BookList from './components/BookList'
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo'
 const client = new ApolloClient({
-  uri: 'http://localhost:5001/graphql'
+  uri: 'http://localhost:5007/graphql'
 });
 function App() {
   return (
