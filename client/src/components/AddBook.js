@@ -9,7 +9,7 @@ class AddBook extends Component {
     
         this.state = {
             title: '',
-            price: '',
+            price: 0,
             authorId:'',
         }
     }
@@ -27,7 +27,13 @@ class AddBook extends Component {
      }
     submitForm(e) {
         e.preventDefault();
-        console.log(this.state);
+        this.props.addBookMutation({
+            variables: {
+                title: this.state.title,
+                price: +this.state.price,
+                authorId: this.state.authorId,
+            }
+        });
     }
     render() {
        

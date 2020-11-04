@@ -16,11 +16,11 @@ const getAuthors = gql`
     }
 }`;
 const addBookMutation = gql`
-mutation{
-    addBook(title:"",price:"",authorId:""){
+mutation($title:String!,$price:Int!,$authorId:ID!){
+    addBook(title:$title,price:$price,authorId:$authorId){
         title,
         price,
-        authorId,
+        
 
     }
 }
