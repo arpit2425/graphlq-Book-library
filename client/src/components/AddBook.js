@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { getAuthors, addBookMutation } from '../queries/query'
+import { getAuthors, addBookMutation,booksQuery } from '../queries/query'
 import {flowRight as compose} from 'lodash';
 
 class AddBook extends Component {
@@ -32,7 +32,8 @@ class AddBook extends Component {
                 title: this.state.title,
                 price: +this.state.price,
                 authorId: this.state.authorId,
-            }
+            },
+            refetchQueries:[{query:booksQuery}]
         });
     }
     render() {
